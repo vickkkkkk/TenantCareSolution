@@ -1,26 +1,111 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Evergreen & Zest palette */
+  --color-ink: #0b1f1a;
+  --color-evergreen: #10453a;
+  --color-moss: #2f6f5e;
+  --color-bone: #f6f4ef;
+  --color-sand: #e4ded1;
+  --color-zest: #c3e04b;
+
+  /* semantic status */
+  --color-available: #2f6f5e;
+  --color-let-agreed: #8a8578;
+  --color-danger: #a33a2b;
+
+  /* fonts */
+  --font-display: var(--font-bricolage), sans-serif;
+  --font-sans: var(--font-public-sans), sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
+
+  /* shape — flat cards, 4px radius everywhere */
+  --radius: 4px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: var(--color-bone);
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-evergreen);
+  --color-primary-foreground: var(--color-bone);
+  --color-secondary: var(--color-sand);
+  --color-secondary-foreground: var(--color-ink);
+  --color-accent: var(--color-zest);
+  --color-accent-foreground: var(--color-ink);
+  --color-muted: var(--color-sand);
+  --color-muted-foreground: var(--color-moss);
+  --color-border: var(--color-sand);
+  --color-input: var(--color-sand);
+  --color-ring: var(--color-moss);
+  --color-destructive: var(--color-danger);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-ink);
+  --color-popover: #ffffff;
+  --color-popover-foreground: var(--color-ink);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-sidebar: var(--color-evergreen);
+  --color-sidebar-foreground: var(--color-bone);
+  --color-sidebar-primary: var(--color-zest);
+  --color-sidebar-primary-foreground: var(--color-ink);
+  --color-sidebar-accent: var(--color-moss);
+  --color-sidebar-accent-foreground: var(--color-bone);
+  --color-sidebar-border: var(--color-moss);
+  --color-sidebar-ring: var(--color-zest);
+
+  --color-chart-1: var(--color-evergreen);
+  --color-chart-2: var(--color-moss);
+  --color-chart-3: var(--color-zest);
+  --color-chart-4: var(--color-sand);
+  --color-chart-5: var(--color-let-agreed);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bone);
+  color: var(--color-ink);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.font-data {
+  font-family: var(--font-mono);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

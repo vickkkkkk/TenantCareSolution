@@ -1,0 +1,384 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------- Enums ----------
+
+enum Role {
+  TENANT
+  LANDLORD
+  AGENT
+  ADMIN
+}
+
+enum PricePeriod {
+  PCM
+  PW
+  PA
+}
+
+enum Furnishing {
+  FURNISHED
+  PART_FURNISHED
+  UNFURNISHED
+}
+
+enum ListingType {
+  RENTAL
+  SALE
+}
+
+enum EnquirySource {
+  PROPERTY_PAGE
+  VALUATION_FORM
+  CONTACT_FORM
+  TENANT_REGISTRATION
+}
+
+enum EnquiryStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+  ARCHIVED
+}
+
+enum AlertFrequency {
+  INSTANT
+  DAILY
+  WEEKLY
+  NEVER
+}
+
+// ---------- Core taxonomy ----------
+
+model State {
+  id     String  @id @default(cuid())
+  name   String  @unique
+  slug   String  @unique
+  cities City[]
+
+  @@index([slug])
+}
+
+model City {
+  id           String  @id @default(cuid())
+  name         String
+  slug         String  @unique
+  heroImage    String?
+  seoBlurb     String? @db.Text
+  listingCount Int     @default(0)
+  stateId      String
+  state        State   @relation(fields: [stateId], references: [id])
+  areas        Area[]
+  properties   Property[]
+
+  @@index([stateId])
+}
+
+model Area {
+  id         String     @id @default(cuid())
+  name       String
+  slug       String     @unique
+  cityId     String
+  city       City       @relation(fields: [cityId], references: [id])
+  properties Property[]
+
+  @@index([cityId])
+}
+
+model Category {
+  id         String     @id @default(cuid())
+  name       String
+  slug       String     @unique
+  parentId   String?
+  parent     Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children   Category[] @relation("CategoryTree")
+  properties Property[]
+
+  @@index([parentId])
+}
+
+model Status {
+  id         String     @id @default(cuid())
+  name       String     @unique
+  slug       String     @unique
+  properties Property[]
+}
+
+model Feature {
+  id         String     @id @default(cuid())
+  name       String     @unique
+  slug       String     @unique
+  properties Property[] @relation("PropertyFeatures")
+}
+
+// ---------- People ----------
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  passwordHash  String?
+  name          String?
+  phone         String?
+  role          Role      @default(TENANT)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  ownedProperties     Property[]           @relation("PropertyOwner")
+  agentProfile        Agent?
+  favourites          Favourite[]
+  savedSearches       SavedSearch[]
+  enquiries           Enquiry[]
+  tenantRegistrations TenantRegistration[]
+  valuationRequests   ValuationRequest[]
+  posts               Post[]
+  auditLogEntries     AuditLogEntry[]
+}
+
+model Agent {
+  id         String     @id @default(cuid())
+  userId     String     @unique
+  user       User       @relation(fields: [userId], references: [id])
+  slug       String     @unique
+  name       String
+  photo      String?
+  phone      String?
+  email      String?
+  bio        String?    @db.Text
+  licence    String?
+  socials    Json?
+  properties Property[]
+
+  @@index([slug])
+}
+
+// ---------- Property ----------
+
+model Property {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  description   String   @db.Text
+  excerpt       String?
+
+  // pricing
+  price         Decimal
+  pricePeriod   PricePeriod
+  deposit       Decimal?
+  billsIncluded Boolean  @default(false)
+
+  // specs
+  bedrooms       Int         @default(0)
+  bathrooms      Int         @default(0)
+  receptions     Int         @default(0)
+  sizeSqft       Int?
+  furnishing     Furnishing?
+  epcRating      String?
+  councilTaxBand String?
+  availableFrom  DateTime?
+
+  // location
+  addressLine1 String
+  addressLine2 String?
+  postcode     String
+  latitude     Float?
+  longitude    Float?
+  cityId       String
+  city         City    @relation(fields: [cityId], references: [id])
+  areaId       String?
+  area         Area?   @relation(fields: [areaId], references: [id])
+  stateId      String
+
+  // taxonomy
+  listingType ListingType @default(RENTAL)
+  categoryId  String
+  category    Category    @relation(fields: [categoryId], references: [id])
+  statusId    String
+  status      Status      @relation(fields: [statusId], references: [id])
+  features    Feature[]   @relation("PropertyFeatures")
+
+  // relations & meta
+  agentId     String?
+  agent       Agent?  @relation(fields: [agentId], references: [id])
+  ownerId     String
+  owner       User    @relation("PropertyOwner", fields: [ownerId], references: [id])
+  images      PropertyImage[]
+  floorplans  Media[]
+  videoUrl    String?
+  virtualTour String?
+
+  published   Boolean   @default(false)
+  featured    Boolean   @default(false)
+  viewCount   Int       @default(0)
+  metaTitle   String?
+  metaDesc    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  favourites    Favourite[]
+  enquiries     Enquiry[]
+  auditLogEntries AuditLogEntry[]
+
+  @@index([cityId, statusId, published])
+  @@index([price, bedrooms])
+  @@index([slug])
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  url        String
+  alt        String?
+  order      Int      @default(0)
+  isPrimary  Boolean  @default(false)
+
+  @@index([propertyId])
+}
+
+model Media {
+  id         String   @id @default(cuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  url        String
+  kind       String   @default("floorplan")
+
+  @@index([propertyId])
+}
+
+// ---------- Engagement ----------
+
+model Favourite {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, propertyId])
+}
+
+model SavedSearch {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id])
+  name      String
+  criteria  Json
+  alertFreq AlertFrequency @default(WEEKLY)
+  createdAt DateTime       @default(now())
+
+  @@index([userId])
+}
+
+model Enquiry {
+  id         String        @id @default(cuid())
+  propertyId String?
+  property   Property?     @relation(fields: [propertyId], references: [id])
+  userId     String?
+  user       User?         @relation(fields: [userId], references: [id])
+  name       String
+  email      String
+  phone      String?
+  message    String        @db.Text
+  source     EnquirySource
+  status     EnquiryStatus @default(NEW)
+  createdAt  DateTime      @default(now())
+
+  @@index([propertyId])
+  @@index([status])
+}
+
+model ValuationRequest {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  name        String
+  email       String
+  phone       String?
+  addressLine String
+  postcode    String
+  message     String?  @db.Text
+  createdAt   DateTime @default(now())
+}
+
+model TenantRegistration {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  name        String
+  email       String
+  phone       String?
+  moveInDate  DateTime?
+  budgetMin   Decimal?
+  budgetMax   Decimal?
+  preferences Json?
+  createdAt   DateTime @default(now())
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  authorName String
+  quote     String   @db.Text
+  rating    Int      @default(5)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+// ---------- Content ----------
+
+model Post {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  title       String
+  excerpt     String?
+  content     String       @db.Text
+  coverImage  String?
+  authorId    String
+  author      User         @relation(fields: [authorId], references: [id])
+  categoryId  String?
+  postCategory PostCategory? @relation(fields: [categoryId], references: [id])
+  published   Boolean      @default(false)
+  publishedAt DateTime?
+  metaTitle   String?
+  metaDesc    String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([slug])
+}
+
+model PostCategory {
+  id    String @id @default(cuid())
+  name  String @unique
+  slug  String @unique
+  posts Post[]
+}
+
+model Page {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  content   String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLogEntry {
+  id         String   @id @default(cuid())
+  propertyId String?
+  property   Property? @relation(fields: [propertyId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  action     String
+  diff       Json?
+  createdAt  DateTime @default(now())
+
+  @@index([propertyId])
+}
