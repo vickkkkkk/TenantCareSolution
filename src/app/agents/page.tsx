@@ -3,7 +3,6 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { AgentAvatar } from "@/components/agent-avatar";
-import { Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Our agents | Tenant Care Solution",
@@ -33,11 +32,6 @@ export default async function AgentsPage() {
               <AgentAvatar name={agent.name} photo={agent.photo} size={88} />
               <p className="font-display text-lg mt-1">{agent.name}</p>
               {agent.jobTitle && <p className="text-sm text-evergreen font-medium">{agent.jobTitle}</p>}
-              {agent.phone && (
-                <span className="text-sm flex items-center gap-1.5 text-evergreen">
-                  <Phone className="size-3.5" /> {agent.phone}
-                </span>
-              )}
             </Link>
           ))}
         </div>
