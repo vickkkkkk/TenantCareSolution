@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { AgentAvatar } from "@/components/agent-avatar";
+import { AgentCardPhoto } from "@/components/agent-card-photo";
 
 export const metadata: Metadata = {
   title: "Our agents | Tenant Care Solution",
@@ -27,14 +27,18 @@ export default async function AgentsPage() {
             <Link
               key={agent.id}
               href={`/agents/${agent.slug}`}
-              className="group relative overflow-hidden rounded-lg border border-sand bg-white p-6 flex flex-col items-center text-center gap-1.5 transition-all duration-300 hover:border-evergreen hover:-translate-y-1 hover:shadow-[0_12px_28px_-16px_rgba(11,31,26,0.25)]"
+              className="group flex flex-col overflow-hidden rounded-lg border border-sand bg-white transition-all duration-300 hover:border-evergreen hover:-translate-y-1 hover:shadow-[0_12px_28px_-16px_rgba(11,31,26,0.25)]"
             >
-              <span className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-zest transition-transform duration-300 group-hover:scale-x-100" />
-              <AgentAvatar name={agent.name} photo={agent.photo} size={92} className="mb-1" />
-              <p className="font-display text-lg">{agent.name}</p>
-              {agent.jobTitle && (
-                <p className="text-xs font-data uppercase tracking-wide text-moss">{agent.jobTitle}</p>
-              )}
+              <AgentCardPhoto name={agent.name} photo={agent.photo} />
+              <div className="p-5 flex flex-col gap-1">
+                <p className="font-display text-lg">{agent.name}</p>
+                {agent.jobTitle && <p className="text-sm text-moss">{agent.jobTitle}</p>}
+                {agent.bio && (
+                  <p className="text-sm text-ink/80 line-clamp-2 mt-2">
+                    {agent.bio} <span className="text-evergreen font-semibold whitespace-nowrap">Read more</span>
+                  </p>
+                )}
+              </div>
             </Link>
           ))}
         </div>
