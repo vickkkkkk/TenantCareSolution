@@ -176,10 +176,43 @@ async function main() {
     ),
   );
 
+  const teamMembers = [
+    {
+      name: "Waqar Hafeez",
+      jobTitle: "Director",
+      bio: "Sets the standard the rest of the team is held to — response times, inspection frequency, how fast a maintenance job gets triaged. Oversees the whole letting and management operation across every city we cover.",
+    },
+    {
+      name: "Faraz Hafeez",
+      jobTitle: "Operations Manager",
+      bio: "Runs the day-to-day: compliance deadlines, agent workload, and making sure nothing falls through the gap between a landlord's expectation and what actually happens on the ground.",
+    },
+    {
+      name: "Hassan Khan",
+      jobTitle: "Senior Lettings Negotiator",
+      bio: "Handles the highest-volume patch on the team — viewings, applications and referencing, mostly across London and the South East. Usually the first person a new tenant speaks to.",
+    },
+    {
+      name: "Asad Khan",
+      jobTitle: "Property Manager",
+      bio: "Coordinates maintenance and inspections on managed properties, and is the point of contact landlords hear from when something needs a decision.",
+    },
+    {
+      name: "Idrees Khan",
+      jobTitle: "Lettings Negotiator",
+      bio: "Runs viewings and processes applications for tenants searching across our regional cities, from first enquiry through to signed tenancy.",
+    },
+    {
+      name: "Muhammad Ashraf",
+      jobTitle: "Compliance & Maintenance Coordinator",
+      bio: "Tracks gas safety, EICR and EPC renewal dates across every managed property, and books in the contractor network before a certificate has the chance to lapse.",
+    },
+  ];
+
   const agentUsers = await Promise.all(
-    ["Sara Kaur", "Michael Osei", "Ellie Bramwell"].map((name) =>
+    teamMembers.map((member) =>
       prisma.user.create({
-        data: { email: `${slugify(name)}@tenant-care-solution.test`, name, role: Role.AGENT },
+        data: { email: `${slugify(member.name)}@tenant-care-solution.test`, name: member.name, role: Role.AGENT },
       }),
     ),
   );
@@ -188,11 +221,13 @@ async function main() {
       prisma.agent.create({
         data: {
           userId: user.id,
-          slug: slugify(user.name ?? `agent-${i}`),
-          name: user.name ?? `Agent ${i}`,
-          phone: `020 7946 0${100 + i}`,
+          slug: slugify(teamMembers[i].name),
+          name: teamMembers[i].name,
+          jobTitle: teamMembers[i].jobTitle,
+          photo: `/agents/${slugify(teamMembers[i].name)}.jpg`,
+          phone: `020 7946 01${String(i).padStart(2, "0")}`,
           email: user.email,
-          bio: "Handles lettings enquiries and viewings across the local patch.",
+          bio: teamMembers[i].bio,
           licence: `PRS-${10000 + i}`,
         },
       }),

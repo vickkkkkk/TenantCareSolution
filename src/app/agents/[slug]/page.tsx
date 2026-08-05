@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PropertyCard, type PropertyCardData } from "@/components/property-card";
+import { AgentAvatar } from "@/components/agent-avatar";
 import { Phone, Mail } from "lucide-react";
 
 async function getAgent(slug: string) {
@@ -44,8 +45,9 @@ export default async function AgentDetailPage({ params }: { params: Promise<{ sl
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Agents", href: "/agents" }, { label: agent.name }]} />
       <section className="max-w-[1280px] mx-auto px-5 md:px-8 lg:px-12 py-16 md:py-24 grid md:grid-cols-[240px_1fr] gap-10">
         <div className="flex flex-col items-center text-center gap-3">
-          <div className="size-32 rounded-full bg-sand" />
+          <AgentAvatar name={agent.name} photo={agent.photo} size={128} />
           <h1 className="text-2xl">{agent.name}</h1>
+          {agent.jobTitle && <p className="text-sm text-evergreen font-medium">{agent.jobTitle}</p>}
           {agent.licence && <p className="text-xs font-data text-moss">Licence {agent.licence}</p>}
           {agent.phone && (
             <a href={`tel:${agent.phone.replace(/\s/g, "")}`} className="text-sm flex items-center gap-1.5 text-evergreen">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { AgentAvatar } from "@/components/agent-avatar";
 import { Phone } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AgentsPage() {
-  const agents = await prisma.agent.findMany({ include: { properties: { select: { id: true } } } });
+  const agents = await prisma.agent.findMany();
 
   return (
     <main className="flex-1">
@@ -27,11 +28,11 @@ export default async function AgentsPage() {
             <Link
               key={agent.id}
               href={`/agents/${agent.slug}`}
-              className="rounded-lg border border-sand bg-white p-6 flex flex-col items-center text-center gap-2 hover:border-evergreen transition-colors"
+              className="rounded-lg border border-sand bg-white p-6 flex flex-col items-center text-center gap-2 hover:border-evergreen hover:-translate-y-0.5 transition-all"
             >
-              <div className="size-20 rounded-full bg-sand" />
-              <p className="font-display text-lg">{agent.name}</p>
-              <p className="text-xs text-moss">{agent.properties.length} active listings</p>
+              <AgentAvatar name={agent.name} photo={agent.photo} size={88} />
+              <p className="font-display text-lg mt-1">{agent.name}</p>
+              {agent.jobTitle && <p className="text-sm text-evergreen font-medium">{agent.jobTitle}</p>}
               {agent.phone && (
                 <span className="text-sm flex items-center gap-1.5 text-evergreen">
                   <Phone className="size-3.5" /> {agent.phone}

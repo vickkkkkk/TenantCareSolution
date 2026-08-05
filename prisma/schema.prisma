@@ -147,6 +147,7 @@ model Agent {
   user       User       @relation(fields: [userId], references: [id])
   slug       String     @unique
   name       String
+  jobTitle   String?
   photo      String?
   phone      String?
   email      String?

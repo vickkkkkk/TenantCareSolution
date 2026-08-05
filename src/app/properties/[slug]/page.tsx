@@ -4,6 +4,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PropertyCard, type PropertyCardData } from "@/components/property-card";
+import { AgentAvatar } from "@/components/agent-avatar";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Badge } from "@/components/ui/badge";
 import { Bed, Bath, Sofa, Ruler, CalendarDays, MapPin, Phone } from "lucide-react";
@@ -150,9 +151,9 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
         <div className="flex flex-col gap-6">
           {property.agent && (
             <div className="rounded-lg border border-sand bg-white p-5 flex flex-col items-center text-center gap-2">
-              <div className="size-16 rounded-full bg-sand overflow-hidden" />
+              <AgentAvatar name={property.agent.name} photo={property.agent.photo} size={64} />
               <p className="font-display">{property.agent.name}</p>
-              <p className="text-xs text-moss">Managing agent</p>
+              <p className="text-xs text-moss">{property.agent.jobTitle ?? "Managing agent"}</p>
               {property.agent.phone && (
                 <a href={`tel:${property.agent.phone.replace(/\s/g, "")}`} className="text-sm flex items-center gap-1.5 text-evergreen">
                   <Phone className="size-3.5" /> {property.agent.phone}
