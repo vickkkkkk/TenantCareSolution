@@ -27,11 +27,14 @@ export default async function AgentsPage() {
             <Link
               key={agent.id}
               href={`/agents/${agent.slug}`}
-              className="rounded-lg border border-sand bg-white p-6 flex flex-col items-center text-center gap-2 hover:border-evergreen hover:-translate-y-0.5 transition-all"
+              className="group relative overflow-hidden rounded-lg border border-sand bg-white p-6 flex flex-col items-center text-center gap-1.5 transition-all duration-300 hover:border-evergreen hover:-translate-y-1 hover:shadow-[0_12px_28px_-16px_rgba(11,31,26,0.25)]"
             >
-              <AgentAvatar name={agent.name} photo={agent.photo} size={88} />
-              <p className="font-display text-lg mt-1">{agent.name}</p>
-              {agent.jobTitle && <p className="text-sm text-evergreen font-medium">{agent.jobTitle}</p>}
+              <span className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-zest transition-transform duration-300 group-hover:scale-x-100" />
+              <AgentAvatar name={agent.name} photo={agent.photo} size={92} className="mb-1" />
+              <p className="font-display text-lg">{agent.name}</p>
+              {agent.jobTitle && (
+                <p className="text-xs font-data uppercase tracking-wide text-moss">{agent.jobTitle}</p>
+              )}
             </Link>
           ))}
         </div>
