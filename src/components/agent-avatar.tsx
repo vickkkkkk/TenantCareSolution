@@ -43,7 +43,7 @@ export function AgentAvatar({
         alt={name}
         fill
         sizes={`${size}px`}
-        className="object-cover"
+        className="object-cover object-top"
         onError={() => setFailed(true)}
       />
     </div>
