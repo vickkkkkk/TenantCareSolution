@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { prisma } from "@/lib/db";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -29,11 +30,13 @@ export const metadata: Metadata = {
   description: "Find and manage rental properties across the UK.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await prisma.siteSettings.findUnique({ where: { id: "main" } }).catch(() => null);
+
   return (
     <html
       lang="en"
@@ -45,7 +48,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        <SiteHeader />
+        <SiteHeader logoUrl={settings?.logoUrl ?? null} />
         {children}
         <SiteFooter />
       </body>

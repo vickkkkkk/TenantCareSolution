@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { SiteLogo } from "@/components/site-logo";
 import { mainNav } from "@/lib/nav";
 
-export function SiteHeader() {
+export function SiteHeader({ logoUrl }: { logoUrl: string | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ export function SiteHeader() {
 
       <div className="flex items-center justify-between px-6 md:px-8 h-16">
         <Link href="/" className="shrink-0">
-          <SiteLogo />
+          <SiteLogo src={logoUrl} />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -93,7 +93,7 @@ export function SiteHeader() {
             <SheetContent side="left" className="w-full sm:max-w-sm overflow-y-auto">
               <SheetHeader>
                 <SheetTitle asChild>
-                  <SiteLogo />
+                  <SiteLogo src={logoUrl} />
                 </SheetTitle>
               </SheetHeader>
               <Accordion type="single" collapsible className="px-4 pb-4">

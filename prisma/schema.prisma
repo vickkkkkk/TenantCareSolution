@@ -383,3 +383,10 @@ model AuditLogEntry {
 
   @@index([propertyId])
 }
+
+// Singleton row for site-wide branding assets uploaded through /admin/branding.
+model SiteSettings {
+  id        String   @id @default("main")
+  logoUrl   String?
+  updatedAt DateTime @updatedAt
+}
