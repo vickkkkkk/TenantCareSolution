@@ -11,7 +11,7 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
       "@type": "ListItem",
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `https://tenant-care-solution.test${item.href}` } : {}),
+      ...(item.href ? { item: `https://tenantcaresolutions.co.uk${item.href}` } : {}),
     })),
   };
 

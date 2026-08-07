@@ -195,9 +195,9 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
         <div className="flex flex-col justify-center">
           <h2 className="text-2xl md:text-3xl mb-4">{ctaHeadline ?? "Talk to someone before you decide"}</h2>
           <Button size="lg" className="bg-evergreen hover:bg-moss w-fit" asChild>
-            <a href="tel:+442079460100">
+            <a href="tel:+447428409407">
               <PhoneCall className="size-4" />
-              Call 020 7946 0100
+              Call +44 7428409407
             </a>
           </Button>
         </div>

@@ -13,11 +13,11 @@ export function SiteFooter() {
             cities, built around clear numbers and fast responses.
           </p>
           <div className="flex flex-col gap-2 text-sm font-data">
-            <a href="tel:+442079460100" className="flex items-center gap-2 hover:text-zest">
-              <Phone className="size-4" /> 020 7946 0100
+            <a href="tel:+447428409407" className="flex items-center gap-2 hover:text-zest">
+              <Phone className="size-4" /> +44 7428409407
             </a>
-            <a href="mailto:hello@tenant-care-solution.test" className="flex items-center gap-2 hover:text-zest">
-              <Mail className="size-4" /> hello@tenant-care-solution.test
+            <a href="mailto:info@tenantcaresolutions.co.uk" className="flex items-center gap-2 hover:text-zest">
+              <Mail className="size-4" /> info@tenantcaresolutions.co.uk
             </a>
             <span className="flex items-center gap-2 text-bone/70">
               <MapPin className="size-4" /> London, United Kingdom

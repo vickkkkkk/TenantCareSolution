@@ -208,9 +208,9 @@ export default async function Home() {
             Talk to someone before you commit to an agency.
           </h2>
           <Button size="lg" className="bg-zest text-ink hover:bg-zest/90" asChild>
-            <a href="tel:+442079460100">
+            <a href="tel:+447428409407">
               <PhoneCall className="size-4" />
-              Call 020 7946 0100
+              Call +44 7428409407
             </a>
           </Button>
         </div>

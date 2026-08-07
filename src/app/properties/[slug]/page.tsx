@@ -50,7 +50,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
     "@type": "RealEstateListing",
     name: property.title,
     description: property.excerpt ?? undefined,
-    url: `https://tenant-care-solution.test/properties/${slug}`,
+    url: `https://tenantcaresolutions.co.uk/properties/${slug}`,
   };
 
   return (

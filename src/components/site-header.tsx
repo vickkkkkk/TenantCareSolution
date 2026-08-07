@@ -31,11 +31,11 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-bone/95 backdrop-blur supports-backdrop-filter:bg-bone/80 border-b border-sand">
       <div className="hidden md:flex items-center justify-end gap-6 px-8 py-1.5 text-xs bg-evergreen text-bone font-data">
-        <a href="tel:+442079460100" className="flex items-center gap-1.5 hover:text-zest">
-          <Phone className="size-3.5" /> 020 7946 0100
+        <a href="tel:+447428409407" className="flex items-center gap-1.5 hover:text-zest">
+          <Phone className="size-3.5" /> +44 7428409407
         </a>
-        <a href="mailto:hello@tenant-care-solution.test" className="flex items-center gap-1.5 hover:text-zest">
-          <Mail className="size-3.5" /> hello@tenant-care-solution.test
+        <a href="mailto:info@tenantcaresolutions.co.uk" className="flex items-center gap-1.5 hover:text-zest">
+          <Mail className="size-3.5" /> info@tenantcaresolutions.co.uk
         </a>
       </div>
 

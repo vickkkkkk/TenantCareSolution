@@ -18,14 +18,14 @@ export default function ContactPage() {
         <div>
           <h1 className="text-3xl md:text-4xl mb-6">Get in touch</h1>
           <div className="flex flex-col gap-5 mb-10">
-            <a href="tel:+442079460100" className="flex items-center gap-3 text-ink hover:text-evergreen">
-              <Phone className="size-5 text-evergreen" /> 020 7946 0100
+            <a href="tel:+447428409407" className="flex items-center gap-3 text-ink hover:text-evergreen">
+              <Phone className="size-5 text-evergreen" /> +44 7428409407
             </a>
-            <a href="mailto:hello@tenant-care-solution.test" className="flex items-center gap-3 text-ink hover:text-evergreen">
-              <Mail className="size-5 text-evergreen" /> hello@tenant-care-solution.test
+            <a href="mailto:info@tenantcaresolutions.co.uk" className="flex items-center gap-3 text-ink hover:text-evergreen">
+              <Mail className="size-5 text-evergreen" /> info@tenantcaresolutions.co.uk
             </a>
-            <a href="https://wa.me/442079460100" className="flex items-center gap-3 text-ink hover:text-evergreen">
-              <MessageCircle className="size-5 text-evergreen" /> WhatsApp: 020 7946 0100
+            <a href="https://wa.me/447428409407" className="flex items-center gap-3 text-ink hover:text-evergreen">
+              <MessageCircle className="size-5 text-evergreen" /> WhatsApp: +44 7428409407
             </a>
             <span className="flex items-center gap-3 text-ink">
               <MapPin className="size-5 text-evergreen" /> 1 Evergreen Court, London, EC1A 1AA
