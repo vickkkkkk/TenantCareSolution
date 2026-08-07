@@ -23,6 +23,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { SiteLogo } from "@/components/site-logo";
 import { mainNav } from "@/lib/nav";
 
 export function SiteHeader() {
@@ -40,8 +41,8 @@ export function SiteHeader() {
       </div>
 
       <div className="flex items-center justify-between px-6 md:px-8 h-16">
-        <Link href="/" className="font-display text-xl font-extrabold text-evergreen">
-          Tenant Care Solution
+        <Link href="/" className="shrink-0">
+          <SiteLogo />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -91,7 +92,9 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="left" className="w-full sm:max-w-sm overflow-y-auto">
               <SheetHeader>
-                <SheetTitle className="font-display text-evergreen">Tenant Care Solution</SheetTitle>
+                <SheetTitle asChild>
+                  <SiteLogo />
+                </SheetTitle>
               </SheetHeader>
               <Accordion type="single" collapsible className="px-4 pb-4">
                 {mainNav.map((item) =>
