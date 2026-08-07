@@ -19,8 +19,9 @@ export function SiteFooter() {
             <a href="mailto:info@tenantcaresolutions.co.uk" className="flex items-center gap-2 hover:text-zest">
               <Mail className="size-4" /> info@tenantcaresolutions.co.uk
             </a>
-            <span className="flex items-center gap-2 text-bone/70">
-              <MapPin className="size-4" /> London, United Kingdom
+            <span className="flex items-start gap-2 text-bone/70">
+              <MapPin className="size-4 shrink-0 mt-0.5" />
+              Flat 2 14a, Kingston Hill, Kingston Upon Thames, Surrey, United Kingdom, KT2 7NH
             </span>
           </div>
         </div>

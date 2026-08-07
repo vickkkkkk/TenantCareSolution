@@ -28,14 +28,14 @@ export default function ContactPage() {
               <MessageCircle className="size-5 text-evergreen" /> WhatsApp: +44 7428409407
             </a>
             <span className="flex items-center gap-3 text-ink">
-              <MapPin className="size-5 text-evergreen" /> 1 Evergreen Court, London, EC1A 1AA
+              <MapPin className="size-5 text-evergreen shrink-0" /> Flat 2 14a, Kingston Hill, Kingston Upon Thames, Surrey, United Kingdom, KT2 7NH
             </span>
             <span className="flex items-center gap-3 text-ink">
               <Clock className="size-5 text-evergreen" /> Mon–Fri, 9am–6pm
             </span>
           </div>
-          <div className="rounded-lg border border-sand bg-sand/40 h-64 flex items-center justify-center text-moss text-sm">
-            Map placeholder — 1 Evergreen Court, London
+          <div className="rounded-lg border border-sand bg-sand/40 h-64 flex items-center justify-center text-moss text-sm text-center px-6">
+            Map placeholder — Flat 2 14a, Kingston Hill, Kingston Upon Thames, Surrey, KT2 7NH
           </div>
         </div>
         <EnquiryForm source="CONTACT_FORM" heading="Send a message" subheading="We reply within one working day." />
