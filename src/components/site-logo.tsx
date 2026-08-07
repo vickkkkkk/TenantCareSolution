@@ -15,13 +15,13 @@ export function SiteLogo({ src, className = "" }: { src?: string | null; classNa
   }
 
   return (
-    <span className={`relative block h-10 w-40 ${className}`}>
+    <span className={`relative block h-14 w-52 sm:h-16 sm:w-60 ${className}`}>
       <Image
         src={src}
         alt="Tenant Care Solutions"
         fill
         priority
-        sizes="160px"
+        sizes="240px"
         unoptimized
         className="object-contain object-left"
         onError={() => setFailed(true)}
