@@ -5,27 +5,27 @@ import Image from "next/image";
 
 export function SiteLogo({ src, className = "" }: { src?: string | null; className?: string }) {
   const [failed, setFailed] = useState(false);
-
-  if (!src || failed) {
-    return (
-      <span className={`font-display text-xl font-extrabold text-evergreen ${className}`}>
-        Tenant Care Solution
-      </span>
-    );
-  }
+  const showImage = Boolean(src) && !failed;
 
   return (
-    <span className={`relative block h-14 w-52 sm:h-16 sm:w-60 ${className}`}>
-      <Image
-        src={src}
-        alt="Tenant Care Solutions"
-        fill
-        priority
-        sizes="240px"
-        unoptimized
-        className="object-contain object-left"
-        onError={() => setFailed(true)}
-      />
+    <span className={`flex items-center gap-2.5 ${className}`}>
+      {showImage && (
+        <span className="relative block size-11 sm:size-12 shrink-0">
+          <Image
+            src={src as string}
+            alt="Tenant Care Solutions logo mark"
+            fill
+            priority
+            sizes="48px"
+            unoptimized
+            className="object-contain"
+            onError={() => setFailed(true)}
+          />
+        </span>
+      )}
+      <span className="font-display text-lg sm:text-xl font-extrabold text-evergreen leading-tight whitespace-nowrap">
+        Tenant Care Solution
+      </span>
     </span>
   );
 }
