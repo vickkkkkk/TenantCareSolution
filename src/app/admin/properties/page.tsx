@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { PropertyDeleteButton } from "@/components/property-delete-button";
 import { Plus, Pencil } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   robots: { index: false, follow: false },
 };

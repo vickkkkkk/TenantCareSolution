@@ -5,6 +5,8 @@ import { AreaPageTemplate } from "@/components/templates/area-page-template";
 import type { PropertyCardData } from "@/components/property-card";
 import { cityPageContent } from "@/content/city-pages";
 
+export const revalidate = 60;
+
 async function getCity(slug: string) {
   const city = await prisma.city.findUnique({ where: { slug } });
   if (!city) return null;

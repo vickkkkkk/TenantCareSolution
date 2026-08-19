@@ -2,6 +2,8 @@ import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { AgentPhotoUploader } from "@/components/agent-photo-uploader";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   robots: { index: false, follow: false },
 };

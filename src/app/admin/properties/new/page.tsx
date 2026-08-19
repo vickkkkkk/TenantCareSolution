@@ -2,6 +2,8 @@ import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PropertyForm } from "@/components/property-form";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   robots: { index: false, follow: false },
 };

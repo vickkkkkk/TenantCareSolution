@@ -6,6 +6,8 @@ import { PropertyCard, type PropertyCardData } from "@/components/property-card"
 import { AgentAvatar } from "@/components/agent-avatar";
 import { Phone, Mail } from "lucide-react";
 
+export const revalidate = 60;
+
 async function getAgent(slug: string) {
   return prisma.agent.findUnique({
     where: { slug },

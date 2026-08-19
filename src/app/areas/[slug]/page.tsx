@@ -5,6 +5,8 @@ import { AreaPageTemplate } from "@/components/templates/area-page-template";
 import type { PropertyCardData } from "@/components/property-card";
 import { staticAreas } from "@/content/areas";
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   return Object.keys(staticAreas).map((slug) => ({ slug }));
 }

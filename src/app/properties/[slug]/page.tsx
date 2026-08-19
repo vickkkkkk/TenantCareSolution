@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Bed, Bath, Sofa, Ruler, CalendarDays, MapPin, Phone } from "lucide-react";
 import { propertyImage, exteriorTags } from "@/lib/property-image";
 
+export const revalidate = 60;
+
 async function getProperty(slug: string) {
   return prisma.property.findUnique({
     where: { slug },
