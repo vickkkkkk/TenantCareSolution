@@ -16,10 +16,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Image must be under 8MB" }, { status: 400 });
   }
 
-  const blob = await put("branding/logo", file, {
+  const ext = file.type.split("/")[1] ?? "png";
+  const blob = await put(`branding/logo-${Date.now()}.${ext}`, file, {
     access: "public",
     addRandomSuffix: false,
-    allowOverwrite: true,
   });
 
   const settings = await prisma.siteSettings.upsert({
