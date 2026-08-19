@@ -4,6 +4,8 @@ import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { AgentCardPhoto } from "@/components/agent-card-photo";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Our agents | Tenant Care Solution",
   description: "Meet the agents managing listings and tenancies across every city we cover.",
