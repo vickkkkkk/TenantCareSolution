@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { AgentPhotoUploader } from "@/components/agent-photo-uploader";
+import { AgentEditor } from "@/components/agent-editor";
+import { NewAgentForm } from "@/components/new-agent-form";
 
 export const dynamic = "force-dynamic";
 
@@ -15,21 +16,23 @@ export default async function AdminAgentsPage() {
     <main className="flex-1">
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Admin" }, { label: "Agent photos" }]} />
       <section className="max-w-3xl mx-auto px-5 md:px-8 py-16">
-        <h1 className="text-3xl mb-2">Agent photos</h1>
+        <h1 className="text-3xl mb-2">Agents</h1>
         <p className="text-moss mb-10">
-          Upload a headshot for each team member. It saves straight to storage and updates the site immediately —
-          no file system access needed.
+          Add or edit team members — name, job title, bio and photo all save straight to the site, no file system
+          access needed.
         </p>
         <div className="flex flex-col gap-4">
           {agents.map((agent) => (
-            <AgentPhotoUploader
+            <AgentEditor
               key={agent.id}
               agentId={agent.id}
               name={agent.name}
               jobTitle={agent.jobTitle}
+              bio={agent.bio}
               photo={agent.photo}
             />
           ))}
+          <NewAgentForm />
         </div>
       </section>
     </main>
