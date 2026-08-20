@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { AgentEditor } from "@/components/agent-editor";
 import { NewAgentForm } from "@/components/new-agent-form";
+import { byAgentSeniority } from "@/lib/agent-rank";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +11,7 @@ export const metadata = {
 };
 
 export default async function AdminAgentsPage() {
-  const agents = await prisma.agent.findMany({ orderBy: { name: "asc" } });
+  const agents = byAgentSeniority(await prisma.agent.findMany());
 
   return (
     <main className="flex-1">

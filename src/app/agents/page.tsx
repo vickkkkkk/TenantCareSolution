@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { AgentCardPhoto } from "@/components/agent-card-photo";
+import { byAgentSeniority } from "@/lib/agent-rank";
 
 export const revalidate = 60;
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AgentsPage() {
-  const agents = await prisma.agent.findMany();
+  const agents = byAgentSeniority(await prisma.agent.findMany());
 
   return (
     <main className="flex-1">
