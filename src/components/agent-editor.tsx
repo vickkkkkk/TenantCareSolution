@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AgentAvatar } from "@/components/agent-avatar";
+import { AgentDeleteButton } from "@/components/agent-delete-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -137,6 +138,9 @@ export function AgentEditor({
         </Button>
         {saveStatus === "done" && <span className="text-xs text-evergreen">Saved</span>}
         {saveStatus === "error" && <span className="text-xs text-danger">{saveError}</span>}
+        <div className="ml-auto">
+          <AgentDeleteButton id={agentId} name={name} />
+        </div>
       </div>
     </div>
   );
